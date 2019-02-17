@@ -1,0 +1,209 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "debug_copy",
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+            "command": "cmd",
+            "args": [
+                "/c",
+                "copy",
+                "${fileBasename}",
+                "${workspaceFolder}\\.debug\\${fileBasename}",
+                "/y",
+                "&code",
+                "${workspaceFolder}\\.debug\\${fileBasename}"
+            ],
+            "problemMatcher": []
+        },
+        {
+            "label": "g++dbg",
+            "group": "test",
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+            "command": "g++",
+            "args": [
+                "-std=c++98",
+                "-Wl,--stack=8129334",
+                "-g",
+                "-Wall",
+                "-Wextra",
+                "-Wpedantic",
+                "-v",
+                "-H",
+                "${fileBasename}",
+                "-o",
+                "${fileBasenameNoExtension}.exe"
+            ],
+            "problemMatcher": "$gcc"
+        },
+        {
+            "label": "g++",
+            "group": "build",
+            "command": "g++",
+            "args": [
+                "-std=c++14",
+                "-Wl,--stack=8129334",
+                "-Wall",
+                "-Wextra",
+                "-Wpedantic",
+                "${relativeFile}",
+                "-o",
+                "${relativeFile}/../${fileBasenameNoExtension}.exe"
+            ],
+            "problemMatcher": "$gcc"
+        },
+        {
+            "label": "g++asm",
+            "group": "test",
+            "command": "cmd",
+            "args": [
+                "/c",
+                "g++",
+                "-std=c++98",
+                "-Wl,--stack=8129334",
+                "-g",
+                "-S",
+                "-Wall",
+                "-Wextra",
+                "-Wpedantic",
+                "${relativeFile}",
+                "-o",
+                "${relativeFile}/../${fileBasenameNoExtension}1.S",
+                "&g++",
+                "-std=gnu++98",
+                "-g",
+                "-c",
+                "-Wa,-adlhn",
+                "${relativeFile}",
+                "-o",
+                "${relativeFile}/../${fileBasenameNoExtension}.o",
+                ">",
+                "${relativeFile}/../${fileBasenameNoExtension}3.S",
+                "&objdump",
+                "-g",
+                "-S",
+                "${relativeFile}/../${fileBasenameNoExtension}.o",
+                "-l",
+                ">",
+                "${relativeFile}/../${fileBasenameNoExtension}2.S"
+            ],
+            "problemMatcher": "$gcc"
+        },
+        {
+            "label": "clang++dbg",
+            "group": "test",
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+            "command": "clang++",
+            "args": [
+                "--target=x86_64-w64-mingw",
+                "-std=c++98",
+                "-Wl,--stack=8129334",
+                "-g",
+                "-Wall",
+                "-Wextra",
+                "-Wpedantic",
+                "-v",
+                "-H",
+                "${fileBasename}",
+                "-o",
+                "${fileBasenameNoExtension}.exe"
+            ],
+            "problemMatcher": {
+                "owner": "cpp",
+                "fileLocation": [
+                    "relative",
+                    "${workspaceRoot}"
+                ],
+                "pattern": {
+                    "regexp": "^(.*):(\\d+):(\\d+):\\s+(warning|error|note):\\s+(.*)$",
+                    "file": 1,
+                    "line": 2,
+                    "column": 3,
+                    "severity": 4,
+                    "message": 5
+                }
+            }
+        },
+        {
+            "label": "clang++",
+            "group": "build",
+            "command": "clang++",
+            "args": [
+                "--target=x86_64-w64-mingw",
+                "-std=c++98",
+                "-Wl,--stack=8129334",
+                "-Wall",
+                "-Wextra",
+                "-Wpedantic",
+                "${relativeFile}",
+                "-o",
+                "${relativeFile}/../${fileBasenameNoExtension}.exe"
+            ],
+            "problemMatcher": {
+                "owner": "cpp",
+                "fileLocation": [
+                    "relative",
+                    "${workspaceRoot}"
+                ],
+                "pattern": {
+                    "regexp": "^(.*):(\\d+):(\\d+):\\s+(warning|error|note):\\s+(.*)$",
+                    "file": 1,
+                    "line": 2,
+                    "column": 3,
+                    "severity": 4,
+                    "message": 5
+                }
+            }
+        },
+        {
+            "label": "clang++asm",
+            "group": "test",
+            "command": "clang++",
+            "args": [
+                "--target=x86_64-w64-mingw",
+                "-std=c++98",
+                "-S",
+                "-Wall",
+                "-Wextra",
+                "-Wpedantic",
+                "${relativeFile}",
+                "-o",
+                "${relativeFile}/../${fileBasenameNoExtension}.S"
+            ],
+            "problemMatcher": {
+                "owner": "cpp",
+                "fileLocation": [
+                    "relative",
+                    "${workspaceRoot}"
+                ],
+                "pattern": {
+                    "regexp": "^(.*):(\\d+):(\\d+):\\s+(warning|error|note):\\s+(.*)$",
+                    "file": 1,
+                    "line": 2,
+                    "column": 3,
+                    "severity": 4,
+                    "message": 5
+                }
+            }
+        },
+        {
+            "label": "dbg_clean",
+            "command": "cmd",
+            "args": [
+                "/c",
+                "del",
+                "/q",
+                "${workspaceFolder}\\.debug"
+            ],
+            "problemMatcher": []
+        }
+    ]
+}
