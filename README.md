@@ -48,12 +48,12 @@ Step 3:运行【OIer Auxiliary.exe】，按指示步骤操作。
 ### Ver 1.0.5 to Ver 1.0.6:
 + fixed 部分转义字符未报错的Bug
 + new 生成后可以自己选择是否打开文件
-                       
+
 ### Ver 1.0.6 to Ver 1.1.0:
 + changed 优化代码
 + fixed 修复win10换行符
 + fixed 文件夹名称无效或末尾空格报错
-                       
+
 ### Ver 1.1.0 to Ver 1.1.1:
 + new 可以自动在缺省源最后加换行
 
@@ -62,7 +62,10 @@ Step 3:运行【OIer Auxiliary.exe】，按指示步骤操作。
 + fixed 名称开头空格报错
 + fixed 名称tab报错
 
+### Ver 1.1.2 to Ver 1.1.3
++ fixed:win10Onedrive桌面显示
+
 ------------------------------------------
 ## 已知问题：
 
-+ Win10系统开启Onedrive桌面备份时创建的文件无法在桌面显示
+暂无
