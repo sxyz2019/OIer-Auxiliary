@@ -7,7 +7,7 @@
 
 const int N = 100, LEN = 2000;
 char s[LEN], now[LEN], name[LEN], pro[N][LEN], cmd[LEN], defSrc[LEN], src[LEN],
-	path[LEN], tmp[LEN];
+	path[LEN], desktop[LEN];
 
 template <class T> inline void read(T &x)
 {
@@ -124,14 +124,15 @@ int main()
 	LPITEMIDLIST lp;
 	SHGetSpecialFolderLocation(0, CSIDL_DESKTOPDIRECTORY,
 							   &lp); // fixed:win10Onedrive◊¿√Êœ‘ æ
-	SHGetPathFromIDList(lp, src);
+	SHGetPathFromIDList(lp, desktop);
+	strcpy(src, desktop);
 	strcat(src, "\\");
 	strcat(src, name);
 	merge(now, "md", src);
 	system(now);
-	strcat(defSrc, "C:\\Users\\");
-	strcat(defSrc, tmp);
-	strcat(defSrc, "\\Desktop\\OIer-Auxiliary\\Default Source.txt");
+	strcpy(defSrc, desktop);
+	strcat(defSrc, "\\OIer-Auxiliary\\Default Source.txt");
+	puts(defSrc);
 	for (int i = 1; i <= n; ++i)
 	{
 		strcpy(path, src);
