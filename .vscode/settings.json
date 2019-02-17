@@ -1,6 +1,6 @@
 {
-    "files.autoGuessEncoding":true,
     "[cpp]": {
+        "files.autoGuessEncoding": false,
         "files.encoding": "gbk"
     }
 }
