@@ -2,6 +2,8 @@
 
 An auxiliary tool for OIers
 
+[**项目地址**](https://github.com/sxyz2019/OIer-Auxiliary)
+
 ------------------------------------------
 ## 使用说明：
 
