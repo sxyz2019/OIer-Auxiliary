@@ -132,7 +132,6 @@ int main()
 	system(now);
 	strcpy(defSrc, desktop);
 	strcat(defSrc, "\\OIer-Auxiliary\\Default Source.txt");
-	puts(defSrc);
 	for (int i = 1; i <= n; ++i)
 	{
 		strcpy(path, src);
