@@ -156,7 +156,6 @@ void createFolder()
 
 void createData()
 {
-
 	for (int i = 1; i <= n; ++i)
 	{
 		getFilePath(path, i, _T(".in"));
