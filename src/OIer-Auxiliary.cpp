@@ -1,34 +1,43 @@
+/*
+#ifndef UNICODE
+#	define UNICODE
+#endif
+#ifndef _UNICODE
+#	define _UNICODE
+#endif
+*/
 #pragma GCC optimize(2)
 #include <cstdio>
 #include <cstring>
 #include <shlobj.h>
+#include <cwchar>
 #include <tchar.h>
 #include <windows.h>
 
 const int N = 100, LEN = 2000;
-char s[LEN], now[LEN], name[LEN], pro[N][LEN], cmd[LEN], defSrc[LEN], src[LEN],
-	path[LEN], desktop[LEN];
+TCHAR s[LEN], now[LEN], name[LEN], pro[N][LEN], cmd[LEN], defSrc[LEN], src[LEN], path[LEN],
+	desktop[LEN];
 
 template <class T> inline void read(T &x)
 {
 	x = 0;
-	char c = getchar();
+	TCHAR c = _gettchar();
 	bool f = 0;
-	for (; !isdigit(c); c = getchar()) f ^= c == '-';
-	for (; isdigit(c); c = getchar()) x = (x << 3) + (x << 1) + (c ^ 48);
-	while (c != '\n') c = getchar(); // fixed:Êý×Öºó×Ö·û
+	for (; !isdigit(c); c = _gettchar()) f ^= c == '-';
+	for (; isdigit(c); c = _gettchar()) x = (x << 3) + (x << 1) + (c ^ 48);
+	while (c != '\n') c = _gettchar(); // fixed:Êý×Öºó×Ö·û
 	x = f ? -x : x;
 }
 
-bool execmd(const char cmd[], char *result)
+bool execmd(const char cmd[], TCHAR *result)
 {
 	static const int SIZE = 128;
-	char buffer[SIZE];
+	TCHAR buffer[SIZE];
 	FILE *pipe = popen(cmd, "r");
 	if (pipe == 0) return false;
 	while (!feof(pipe))
-		if (fgets(buffer, SIZE, pipe)) strcat(result, buffer);
-	int len = strlen(result);
+		if (_fgetts(buffer, SIZE, pipe)) _tcscat(result, buffer);
+	int len = _tcslen(result);
 	while (result[len - 1] == '\n') // fixed:ÐÞ¸´win10»»ÐÐ·û
 	{
 		--len;
@@ -38,62 +47,73 @@ bool execmd(const char cmd[], char *result)
 	return true;
 }
 
-bool checkName(const char name[])
+bool checkName(const TCHAR name[])
 {
-	static const int LEN = 50;
-	int len = strlen(name);
-	if (!len || len > LEN) return false; // fixed:¿Õ×Ö·û´®
+	static const int maxLenName = 50;
+	int len = _tcslen(name);
+	if (!len || len > maxLenName) return false; // fixed:¿Õ×Ö·û´®
 	if (name[0] == ' ' || name[len - 1] == ' ')
 		return false; // fixed:ÎÄ¼þ¼ÐÃû³ÆÄ©Î²¿Õ¸ñ±¨´í Ãû³Æ¿ªÍ·¿Õ¸ñ±¨´í
 	for (int i = 0; i < len; ++i)
-		if (name[i] == '<' || name[i] == '>' || name[i] == '^' || name[i] == '&'
-			|| name[i] == '%' || name[i] == '"' || name[i] == '\''
-			|| name[i] == '\\' || name[i] == '/' || name[i] == '*'
-			|| name[i] == ':' || name[i] == '|' || name[i] == '?'
+		if (name[i] == '<' || name[i] == '>' || name[i] == '^' || name[i] == '&' || name[i] == '%'
+			|| name[i] == '"' || name[i] == '\'' || name[i] == '\\' || name[i] == '/'
+			|| name[i] == '*' || name[i] == ':' || name[i] == '|' || name[i] == '?'
 			|| name[i] == '\t') // fixed:Ãû³Ætab±¨´í
 			return false;
 	return true;
 }
 
-void catPath(char s[], const char path[])
+void catPath(TCHAR s[], const TCHAR path[])
 {
-	strcat(s, " \"");
-	strcat(s, path);
-	strcat(s, "\"");
+	_tcscat(s, _T(" \""));
+	_tcscat(s, path);
+	_tcscat(s, _T("\""));
 }
 
-void merge(char s[], const char cmd[], const char path[])
+void merge(TCHAR s[], const TCHAR cmd[], const TCHAR path[])
 {
-	strcpy(s, cmd);
+	_tcscpy(s, cmd);
 	catPath(s, path);
 }
 
-void merge(char s[], const char cmd[], const char path1[], const char path2[])
+void merge(TCHAR s[], const TCHAR cmd[], const TCHAR path1[], const TCHAR path2[])
 {
-	strcpy(s, cmd);
+	_tcscpy(s, cmd);
 	catPath(s, path1);
 	catPath(s, path2);
 }
 
-void getFilePath(char now[], int k, const char ext[])
+void getFilePath(TCHAR now[], int k, const TCHAR ext[])
 {
-	strcpy(now, src);
-	strcat(now, "\\");
-	strcat(now, pro[k]);
-	strcat(now, "\\");
-	strcat(now, pro[k]);
-	strcat(now, ext);
+	_tcscpy(now, src);
+	_tcscat(now, _T("\\"));
+	_tcscat(now, pro[k]);
+	_tcscat(now, _T("\\"));
+	_tcscat(now, pro[k]);
+	_tcscat(now, ext);
+}
+
+void getStr(TCHAR s[])
+{
+	_fgetts(s,LEN,stdin);
+	int len = _tcslen(s);
+	while (s[len - 1] == '\n') // fixed:ÐÞ¸´win10»»ÐÐ·û
+	{
+		--len;
+		s[len] = 0;
+	}
 }
 
 int main()
 {
 	int n;
+	//system("chcp 65001");
 	puts("Input your name:");
-	gets(name);
+	getStr(name);
 	while (!checkName(name))
 	{
 		puts("\nError code is 0.\nPlease input again:");
-		gets(name);
+		getStr(name);
 	}
 	putchar('\n');
 	puts("Input the number of problems:");
@@ -108,16 +128,16 @@ int main()
 	for (int i = 1; i <= n; ++i)
 	{
 		printf("Problem %d:", i);
-		gets(pro[i]);
+		getStr(pro[i]);
 		while (!checkName(pro[i]))
 		{
 			puts("\nError code is 2.\nPlease input again:");
 			printf("Problem %d:", i);
-			gets(pro[i]);
+			getStr(pro[i]);
 		}
 		putchar('\n');
 	}
-	system("cls");
+	_tsystem(_T("cls"));
 	puts("Loading...\n");
 	DWORD t1, t2;
 	t1 = GetTickCount();
@@ -125,85 +145,85 @@ int main()
 	SHGetSpecialFolderLocation(0, CSIDL_DESKTOPDIRECTORY,
 							   &lp); // fixed:win10Onedrive×ÀÃæÏÔÊ¾
 	SHGetPathFromIDList(lp, desktop);
-	strcpy(src, desktop);
-	strcat(src, "\\");
-	strcat(src, name);
-	merge(now, "md", src);
-	system(now);
-	strcpy(defSrc, desktop);
-	strcat(defSrc, "\\OIer-Auxiliary\\Default Source.txt");
+	_tcscpy(src, desktop);
+	_tcscat(src, _T("\\"));
+	_tcscat(src, name);
+	merge(now, _T("md"), src);
+	_tsystem(now);
+	_putts(now);
+	_tcscpy(defSrc, desktop);
+	_tcscat(defSrc, _T("\\OIer-Auxiliary\\Default Source.txt"));
 	for (int i = 1; i <= n; ++i)
 	{
-		strcpy(path, src);
-		strcat(path, "\\");
-		strcat(path, pro[i]);
-		merge(now, "md", path);
-		system(now);
+		_tcscpy(path, src);
+		_tcscat(path, _T("\\"));
+		_tcscat(path, pro[i]);
+		merge(now, _T("md"), path);
+		_tsystem(now);
 	}
 	for (int i = 1; i <= n; ++i)
 	{
-		getFilePath(path, i, ".in");
-		merge(now, "type nul > ", path);
-		system(now);
+		getFilePath(path, i, _T(".in"));
+		merge(now, _T("type nul > "), path);
+		_tsystem(now);
 	}
 	for (int i = 1; i <= n; ++i)
 	{
-		getFilePath(path, i, ".out");
-		merge(now, "type nul > ", path);
-		system(now);
+		getFilePath(path, i, _T(".out"));
+		merge(now, _T("type nul > "), path);
+		_tsystem(now);
 	}
 	for (int i = 1; i <= n; ++i)
 	{
-		getFilePath(path, i, ".cpp");
-		merge(now, "copy", defSrc, path);
-		strcat(now, " > nul");
-		system(now);
+		getFilePath(path, i, _T(".cpp"));
+		merge(now, _T("copy"), defSrc, path);
+		_tcscat(now, _T(" > nul"));
+		_tsystem(now);
 	}
 	for (int i = 1; i <= n; ++i)
 	{
-		getFilePath(path, i, ".cpp");
-		merge(now, "echo. >>", path);
-		system(now);
+		getFilePath(path, i, _T(".cpp"));
+		merge(now, _T("echo. >>"), path);
+		_tsystem(now);
 		for (int j = 0; j <= 9; ++j)
 		{
-			strcpy(cmd, "echo ");
-			if (j == 0) strcat(cmd, "/*");
-			if (j == 1) strcat(cmd, "****************************************");
-			if (j == 2) strcat(cmd, "FileOpen:");
+			_tcscpy(cmd, _T("echo "));
+			if (j == 0) _tcscat(cmd, _T("/*"));
+			if (j == 1) _tcscat(cmd, _T("****************************************"));
+			if (j == 2) _tcscat(cmd, _T("FileOpen:"));
 			if (j == 3)
-				strcat(cmd, "freopen(\""), strcat(cmd, pro[i]),
-					strcat(cmd, ".in\", \"r\", stdin);");
+				_tcscat(cmd, _T("freopen(\"")), _tcscat(cmd, pro[i]),
+					_tcscat(cmd, _T(".in\", \"r\", stdin);"));
 			if (j == 4)
-				strcat(cmd, "freopen(\""), strcat(cmd, pro[i]),
-					strcat(cmd, ".out\", \"w\", stdout);");
-			if (j == 5) strcat(cmd, "FileClose:");
-			if (j == 6) strcat(cmd, "fclose(\"stdin\");");
-			if (j == 7) strcat(cmd, "fclose(\"stdout\");");
-			if (j == 8) strcat(cmd, "****************************************");
-			if (j == 9) strcat(cmd, "*/");
-			strcat(cmd, " >>");
-			getFilePath(path, i, ".cpp");
+				_tcscat(cmd, _T("freopen(\"")), _tcscat(cmd, pro[i]),
+					_tcscat(cmd, _T(".out\", \"w\", stdout);"));
+			if (j == 5) _tcscat(cmd, _T("FileClose:"));
+			if (j == 6) _tcscat(cmd, _T("fclose(\"stdin\");"));
+			if (j == 7) _tcscat(cmd, _T("fclose(\"stdout\");"));
+			if (j == 8) _tcscat(cmd, _T("****************************************"));
+			if (j == 9) _tcscat(cmd, _T("*/"));
+			_tcscat(cmd, _T(" >>"));
+			getFilePath(path, i, _T(".cpp"));
 			merge(now, cmd, path);
-			system(now);
+			_tsystem(now);
 		}
 	}
 	t2 = GetTickCount();
 	printf("Completed.Use time:%.3lfs\n", (t2 - t1) / 1000.0);
 	puts("\nDo you want to open the files now?(Y/N)");
-	gets(s);
-	while (strlen(s) != 1
-		   || (s[0] != 'Y' && s[0] != 'N' && s[0] != 'y' && s[0] != 'n'))
+	getStr(s);
+	while (_tcslen(s) != 1 || (s[0] != 'Y' && s[0] != 'N' && s[0] != 'y' && s[0] != 'n'))
 	{
 		puts("\nError code is 3.\nPlease input again:\n");
-		gets(s);
+		getStr(s);
 	}
 	if (s[0] == 'Y' || s[0] == 'y')
 		for (int i = 1; i <= n; ++i)
 		{
-			getFilePath(path, i, ".cpp");
-			ShellExecute(NULL, _T("open"), _T(path), NULL, NULL, SW_SHOW);
+			getFilePath(path, i, _T(".cpp"));
+			ShellExecute(NULL, _T("open"), path, NULL, NULL, SW_SHOW);
 		}
 	puts("\nThank you for your trust and support.\nPress any key to exit.");
-	system("pause >nul");
+	_tsystem(_T("pause >nul"));
 	return 0;
 }
