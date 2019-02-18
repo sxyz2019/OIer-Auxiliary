@@ -17,7 +17,6 @@
 const int N = 100, LEN = 2000;
 TCHAR s[LEN], now[LEN], name[LEN], pro[N][LEN], cmd[LEN], defSrc[LEN], src[LEN], path[LEN],
 	desktop[LEN];
-char tmp[LEN];
 
 template <class T> inline void read(T &x)
 {
@@ -50,9 +49,9 @@ bool execmd(const char cmd[], TCHAR *result)
 
 bool checkName(const TCHAR name[])
 {
-	static const int LEN = 50;
+	static const int maxLenName = 50;
 	int len = _tcslen(name);
-	if (!len || len > LEN) return false; // fixed:空字符串
+	if (!len || len > maxLenName) return false; // fixed:空字符串
 	if (name[0] == ' ' || name[len - 1] == ' ')
 		return false; // fixed:文件夹名称末尾空格报错 名称开头空格报错
 	for (int i = 0; i < len; ++i)
