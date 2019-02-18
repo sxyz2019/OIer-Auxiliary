@@ -15,6 +15,7 @@
 const int N = 100, LEN = 2000;
 TCHAR s[LEN], now[LEN], name[LEN], pro[N][LEN], cmd[LEN], defSrc[LEN], src[LEN], path[LEN],
 	desktop[LEN];
+int n;
 
 template <class T> inline void read(T &x)
 {
@@ -104,10 +105,8 @@ void getStr(TCHAR s[])
 	}
 }
 
-int main()
+void input()
 {
-	int n;
-	// system("chcp 65001");
 	puts("Input your name:");
 	getStr(name);
 	while (!checkName(name))
@@ -137,21 +136,14 @@ int main()
 		}
 		putchar('\n');
 	}
-	_tsystem(_T("cls"));
-	puts("Loading...\n");
-	DWORD t1, t2;
-	t1 = GetTickCount();
-	LPITEMIDLIST lp;
-	SHGetSpecialFolderLocation(0, CSIDL_DESKTOPDIRECTORY,
-							   &lp); // fixed:win10Onedrive桌面显示
-	SHGetPathFromIDList(lp, desktop);
+}
+void createFolder()
+{
 	_tcscpy(src, desktop);
 	_tcscat(src, _T("\\"));
 	_tcscat(src, name);
 	merge(now, _T("md"), src);
 	_tsystem(now);
-	_tcscpy(defSrc, desktop);
-	_tcscat(defSrc, _T("\\OIer-Auxiliary\\Default Source.txt"));
 	for (int i = 1; i <= n; ++i)
 	{
 		_tcscpy(path, src);
@@ -160,6 +152,11 @@ int main()
 		merge(now, _T("md"), path);
 		_tsystem(now);
 	}
+}
+
+void createData()
+{
+
 	for (int i = 1; i <= n; ++i)
 	{
 		getFilePath(path, i, _T(".in"));
@@ -172,6 +169,10 @@ int main()
 		merge(now, _T("type nul > "), path);
 		_tsystem(now);
 	}
+}
+
+void createSource()
+{
 	for (int i = 1; i <= n; ++i)
 	{
 		getFilePath(path, i, _T(".cpp"));
@@ -207,8 +208,10 @@ int main()
 			_tsystem(now);
 		}
 	}
-	t2 = GetTickCount();
-	printf("Completed.Use time:%.3lfs\n", (t2 - t1) / 1000.0);
+}
+
+void openFiles()
+{
 	puts("\nDo you want to open the files now?(Y/N)");
 	getStr(s);
 	while (_tcslen(s) != 1 || (s[0] != 'Y' && s[0] != 'N' && s[0] != 'y' && s[0] != 'n'))
@@ -222,6 +225,27 @@ int main()
 			getFilePath(path, i, _T(".cpp"));
 			ShellExecute(NULL, _T("open"), path, NULL, NULL, SW_SHOW);
 		}
+}
+
+int main()
+{
+	input();
+	_tsystem(_T("cls"));
+	puts("Loading...\n");
+	DWORD t1, t2;
+	t1 = GetTickCount();
+	LPITEMIDLIST lp;
+	SHGetSpecialFolderLocation(0, CSIDL_DESKTOPDIRECTORY,
+							   &lp); // fixed:win10Onedrive桌面显示
+	SHGetPathFromIDList(lp, desktop);
+	_tcscpy(defSrc, desktop);
+	_tcscat(defSrc, _T("\\OIer-Auxiliary\\Default Source.txt"));
+	createFolder();
+	createData();
+	createSource();
+	t2 = GetTickCount();
+	printf("Completed.Use time:%.3lfs\n", (t2 - t1) / 1000.0);
+	openFiles();
 	puts("\nThank you for your trust and support.\nPress any key to exit.");
 	_tsystem(_T("pause >nul"));
 	return 0;
