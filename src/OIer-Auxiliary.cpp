@@ -8,9 +8,7 @@
 */
 #pragma GCC optimize(2)
 #include <cstdio>
-#include <cstring>
 #include <shlobj.h>
-#include <cwchar>
 #include <tchar.h>
 #include <windows.h>
 
@@ -23,8 +21,8 @@ template <class T> inline void read(T &x)
 	x = 0;
 	TCHAR c = _gettchar();
 	bool f = 0;
-	for (; !isdigit(c); c = _gettchar()) f ^= c == '-';
-	for (; isdigit(c); c = _gettchar()) x = (x << 3) + (x << 1) + (c ^ 48);
+	for (; !_istdigit(c); c = _gettchar()) f ^= c == '-';
+	for (; _istdigit(c); c = _gettchar()) x = (x << 3) + (x << 1) + (c ^ 48);
 	while (c != '\n') c = _gettchar(); // fixed:数字后字符
 	x = f ? -x : x;
 }
@@ -47,19 +45,21 @@ bool execmd(const char cmd[], TCHAR *result)
 	return true;
 }
 
+bool isLegal(const char ch)
+{
+	return ch != '<' && ch != '>' && ch != '^' && ch != '&' && ch != '%' && ch != '"' && ch != '\''
+		   && ch != '\\' && ch != '/' && ch != '*' && ch != ':' && ch != '|' && ch != '?'
+		   && ch != '\t';
+}
+
 bool checkName(const TCHAR name[])
 {
 	static const int maxLenName = 50;
 	int len = _tcslen(name);
 	if (!len || len > maxLenName) return false; // fixed:空字符串
-	if (name[0] == ' ' || name[len - 1] == ' ')
-		return false; // fixed:文件夹名称末尾空格报错 名称开头空格报错
+	if (name[0] == ' ' || name[len - 1] == ' ') return false;
 	for (int i = 0; i < len; ++i)
-		if (name[i] == '<' || name[i] == '>' || name[i] == '^' || name[i] == '&' || name[i] == '%'
-			|| name[i] == '"' || name[i] == '\'' || name[i] == '\\' || name[i] == '/'
-			|| name[i] == '*' || name[i] == ':' || name[i] == '|' || name[i] == '?'
-			|| name[i] == '\t') // fixed:名称tab报错
-			return false;
+		if (!isLegal(name[i])) return false;
 	return true;
 }
 
@@ -95,7 +95,7 @@ void getFilePath(TCHAR now[], int k, const TCHAR ext[])
 
 void getStr(TCHAR s[])
 {
-	_fgetts(s,LEN,stdin);
+	_fgetts(s, LEN, stdin);
 	int len = _tcslen(s);
 	while (s[len - 1] == '\n') // fixed:修复win10换行符
 	{
@@ -107,7 +107,7 @@ void getStr(TCHAR s[])
 int main()
 {
 	int n;
-	//system("chcp 65001");
+	// system("chcp 65001");
 	puts("Input your name:");
 	getStr(name);
 	while (!checkName(name))
