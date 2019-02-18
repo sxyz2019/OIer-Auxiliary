@@ -150,7 +150,6 @@ int main()
 	_tcscat(src, name);
 	merge(now, _T("md"), src);
 	_tsystem(now);
-	_putts(now);
 	_tcscpy(defSrc, desktop);
 	_tcscat(defSrc, _T("\\OIer-Auxiliary\\Default Source.txt"));
 	for (int i = 1; i <= n; ++i)
