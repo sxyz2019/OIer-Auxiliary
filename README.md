@@ -1,5 +1,7 @@
 # OIer-Auxiliary
 
+[![CodeFactor](https://www.codefactor.io/repository/github/sxyz2019/oier-auxiliary/badge)](https://www.codefactor.io/repository/github/sxyz2019/oier-auxiliary)
+
 An auxiliary tool for OIers
 
 [**项目地址**](https://github.com/sxyz2019/OIer-Auxiliary)
@@ -63,7 +65,7 @@ Step 3:运行【OIer Auxiliary.exe】，按指示步骤操作。
 + fixed 名称tab报错
 
 ### Ver 1.1.2 to Ver 1.1.3
-+ fixed:win10Onedrive桌面显示
++ fixed win10Onedrive桌面显示
 
 ------------------------------------------
 ## 已知问题：
