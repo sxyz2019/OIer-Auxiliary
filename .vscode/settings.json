@@ -5,6 +5,7 @@
     },
     "files.associations": {
         "cwchar": "cpp",
-        "cstring": "cpp"
+        "cstring": "cpp",
+        "string": "cpp"
     }
 }
