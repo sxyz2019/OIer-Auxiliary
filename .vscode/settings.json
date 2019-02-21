@@ -2,6 +2,7 @@
     "files.associations": {
         "cwchar": "cpp",
         "cstring": "cpp",
-        "string": "cpp"
+        "string": "cpp",
+        "ctime": "cpp"
     }
 }
