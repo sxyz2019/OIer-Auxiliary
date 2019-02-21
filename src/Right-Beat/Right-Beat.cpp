@@ -44,11 +44,14 @@ void getAllFiles(string path, vector<string>& files,string fileType)
     long hFile = 0;
     // 文件信息
     struct _finddata_t fileinfo;  
+ 
     string p;
+ 
     if ((hFile = _findfirst(p.assign(path).append("\\*" + fileType).c_str(), &fileinfo)) != -1) {
         do {
             // 保存文件的全路径
             files.push_back(p.assign(path).append("\\").append(fileinfo.name));
+ 
            } while (_findnext(hFile, &fileinfo) == 0);  //寻找下一个，成功返回0，否则-1
  
         _findclose(hFile);
@@ -72,7 +75,7 @@ void failed()
 int main()
 {
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_INTENSITY | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
-	SetConsoleTitle("自动对拍程序");
+    SetConsoleTitle("Right-Beat(自动对拍程序)");
 	strcat(now, _pgmptr);
 	len = strlen(now);
 	while (now[--len] != '\\') now[len] = ' ';
@@ -110,20 +113,27 @@ int main()
 	}
 	for (int i = 0; i < pro1.size() && pro1[i] != '.'; ++i)
 		name1 += pro1[i];
-	s1 = name1 + ".exe";
-	name1 += ".out";
+	s1 = '\"' + name1 + ".exe\"";
+	name1 = '\"' + name1 + ".out" + '\"';
 	for (int i = 0; i < pro2.size() && pro2[i] != '.'; ++i)
 		name2 += pro2[i];
-	s2 = name2 + ".exe";
-	name2 += ".out";
+	s2 = '\"' + name2 + ".exe\"";
+	name2 = '\"' + name2 + ".out" + '\"';
+	pro1 = "\"\"" + pro1 + "\"";
+	pro2 = "\"\"" + pro2 + "\"";
+//	cout << pro1 << '\n' << pro2 << '\n';
+//	cout << s1 << '\n' << s2 << '\n';
 	gen += " > testdata.in";
-	pro1 += " < testdata.in > " + name1;
-	pro2 += " < testdata.in > " + name2;
+	pro1 += " < testdata.in > " + name1 + '\"';
+	pro2 += " < testdata.in > " + name2 + '\"';
+//	cout << pro1 << '\n' << pro2 << '\n';
 	fc = "fc " + name1 + " " + name2 + " > nul";
 	for (int i = 0; i < gen.size(); ++i) cmd[0][i] = gen[i]; cmd[0][gen.size()] = '\0';
 	for (int i = 0; i < pro1.size(); ++i) cmd[1][i] = pro1[i]; cmd[1][pro1.size()] = '\0';
 	for (int i = 0; i < pro2.size(); ++i) cmd[2][i] = pro2[i]; cmd[2][pro2.size()] = '\0';
 	for (int i = 0; i < fc.size(); ++i) cmd[3][i] = fc[i]; cmd[3][fc.size()] = '\0';
+//	for (int i = 0; i < 4; ++i)
+//		puts(cmd[i]);
 	puts("Please enter the number of datas:");
 	read(T);
 	if (T <= 0) num = -1;
@@ -139,7 +149,7 @@ int main()
 		t1 = GetTickCount();
 		system(cmd[0]);
 		t2 = GetTickCount();
-		printf("datamaker.exe running time: %dms\n", t2 - t1);
+		printf("\"datamaker.exe\" running time: %dms\n", t2 - t1);
 		system(cmd[1]);
 		t1 = GetTickCount();
 		cout << s1 << " running time: ";
