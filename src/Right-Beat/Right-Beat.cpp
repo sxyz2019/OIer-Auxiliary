@@ -72,6 +72,7 @@ void failed()
 int main()
 {
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_INTENSITY | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
+	SetConsoleTitle("自动对拍程序");
 	strcat(now, _pgmptr);
 	len = strlen(now);
 	while (now[--len] != '\\') now[len] = ' ';
