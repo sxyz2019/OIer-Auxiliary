@@ -12,7 +12,7 @@ const int LEN = 2000, MAX = 1e8;
 
 int len, cnt, T, num;
 char now[LEN], cmd[4][LEN];
-string res, pro1, pro2, s1, s2, name1, name2, gen, fc, pro[LEN];
+string res, pro1, pro2, s1, s2, name1, name2, gen, fc;
 
 template <class T> inline void read(T &x)
 {
@@ -50,7 +50,7 @@ void getAllFiles(string path, vector<string>& files,string fileType)
     if ((hFile = _findfirst(p.assign(path).append("\\*" + fileType).c_str(), &fileinfo)) != -1) {
         do {
             // 保存文件的全路径
-            files.push_back(p.assign(path).append("\\").append(fileinfo.name));
+            files.push_back(p.assign(fileinfo.name));
  
            } while (_findnext(hFile, &fileinfo) == 0);  //寻找下一个，成功返回0，否则-1
  
@@ -82,9 +82,9 @@ int main()
 	now[len] = '\0';
 	for (int i = 0; i < len; ++i) res += now[i];
 	//res = '\"' + res + '\"';
-    vector <string> temp;
-    getAllFiles(res, temp, ".exe");
-    if (temp.size() != 4)
+    vector <string> pro;
+    getAllFiles(res, pro, ".exe");
+    if (pro.size() != 4)
 	{
     	puts("Error code is 0.");
     	puts("\nThank you for your trust and support.\nPress any key to exit.");
@@ -92,12 +92,8 @@ int main()
     	return 0;
 	}
 	bool flag = 0;
-    for (int i = 0; i < temp.size(); ++i)
-	{
-    	for (int j = temp[i].size() - 1; j && temp[i][j] != '\\' && temp[i][j] != ':'; --j)
-    		pro[i] = temp[i][j] + pro[i];
+    for (int i = 0; i < pro.size(); ++i)
     	if (pro[i] == "datamaker.exe") flag = 1;
-	}
 	if (!flag) {
 		puts("Error code is 1.");
     	puts("\nThank you for your trust and support.\nPress any key to exit.");
