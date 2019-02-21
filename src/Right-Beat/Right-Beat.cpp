@@ -93,7 +93,6 @@ void GetAllFiles(tstring path, vector<tstring> &files, tstring fileType)
 		{
 			// 保存文件的全路径
 			files.push_back(p.assign(fileinfo.name));
-
 		} while (_tfindnext(hFile, &fileinfo) == 0); //寻找下一个，成功返回0，否则-1
 
 		_findclose(hFile);
