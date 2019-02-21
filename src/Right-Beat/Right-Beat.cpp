@@ -1,4 +1,10 @@
 #pragma GCC optimize(2)
+#ifndef UNICODE
+#	define UNICODE
+#endif
+#ifndef _UNICODE
+#	define _UNICODE
+#endif
 #include <bits/stdc++.h>
 #include <io.h>
 #include <fstream>
@@ -75,7 +81,10 @@ void failed()
 int main()
 {
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_INTENSITY | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
-    SetConsoleTitle("Right-Beat(自动对拍程序)");
+    SetConsoleTitle(_T("Right-Beat(自动对拍程序)"));
+	HANDLE handle_out=GetStdHandle(STD_OUTPUT_HANDLE);
+	COORD size = { 8000, 2500 };
+	SetConsoleScreenBufferSize(handle_out,size);
 	strcat(now, _pgmptr);
 	len = strlen(now);
 	while (now[--len] != '\\') now[len] = ' ';
