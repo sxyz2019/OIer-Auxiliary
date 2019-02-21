@@ -1,11 +1,9 @@
-/*
 #ifndef UNICODE
 #	define UNICODE
 #endif
 #ifndef _UNICODE
 #	define _UNICODE
 #endif
-*/
 #pragma GCC optimize(2)
 #include <cstdio>
 #include <shlobj.h>
@@ -24,7 +22,7 @@ template <class T> inline void read(T &x)
 	bool f = 0;
 	for (; !_istdigit(c); c = _gettchar()) f ^= c == '-';
 	for (; _istdigit(c); c = _gettchar()) x = (x << 3) + (x << 1) + (c ^ 48);
-	while (c != '\n') c = _gettchar(); // fixed:Êý×Öºó×Ö·û
+	while (c != '\n') c = _gettchar(); // fixed:æ•°å­—åŽå­—ç¬¦
 	x = f ? -x : x;
 }
 
@@ -37,7 +35,7 @@ bool execmd(const char cmd[], TCHAR *result)
 	while (!feof(pipe))
 		if (_fgetts(buffer, SIZE, pipe)) _tcscat(result, buffer);
 	int len = _tcslen(result);
-	while (result[len - 1] == '\n') // fixed:ÐÞ¸´win10»»ÐÐ·û
+	while (result[len - 1] == '\n') // fixed:ä¿®å¤win10æ¢è¡Œç¬¦
 	{
 		--len;
 		result[len] = 0;
@@ -57,7 +55,7 @@ bool checkName(const TCHAR name[])
 {
 	static const int maxLenName = 50;
 	int len = _tcslen(name);
-	if (!len || len > maxLenName) return false; // fixed:¿Õ×Ö·û´®
+	if (!len || len > maxLenName) return false; // fixed:ç©ºå­—ç¬¦ä¸²
 	if (name[0] == ' ' || name[len - 1] == ' ') return false;
 	for (int i = 0; i < len; ++i)
 		if (!isLegal(name[i])) return false;
@@ -98,7 +96,7 @@ void getStr(TCHAR s[])
 {
 	_fgetts(s, LEN, stdin);
 	int len = _tcslen(s);
-	while (s[len - 1] == '\n') // fixed:ÐÞ¸´win10»»ÐÐ·û
+	while (s[len - 1] == '\n') // fixed:ä¿®å¤win10æ¢è¡Œç¬¦
 	{
 		--len;
 		s[len] = 0;
@@ -235,7 +233,7 @@ int main()
 	t1 = GetTickCount();
 	LPITEMIDLIST lp;
 	SHGetSpecialFolderLocation(0, CSIDL_DESKTOPDIRECTORY,
-							   &lp); // fixed:win10Onedrive×ÀÃæÏÔÊ¾
+							   &lp); // fixed:win10Onedriveæ¡Œé¢æ˜¾ç¤º
 	SHGetPathFromIDList(lp, desktop);
 	_tcscpy(defSrc, desktop);
 	_tcscat(defSrc, _T("\\OIer-Auxiliary\\Default Source.txt"));

@@ -1,8 +1,4 @@
 {
-    "[cpp]": {
-        "files.autoGuessEncoding": false,
-        "files.encoding": "gbk"
-    },
     "files.associations": {
         "cwchar": "cpp",
         "cstring": "cpp",
