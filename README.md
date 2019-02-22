@@ -6,10 +6,6 @@ An auxiliary tool for OIers
 
 [**项目地址**](https://github.com/sxyz2019/OIer-Auxiliary)
 
-## LICENSE
-
-This project follow [GPL-3.0 LICENSE](LICENSE)
-
 ------------------------------------------
 ## 使用说明：
 
@@ -31,7 +27,7 @@ Step 3:运行【OIer Auxiliary.exe】，按指示步骤操作。
 
 ### 名称：OIer Auxiliary(OIer辅助工具)
 
-### 版本：Ver 1.1.2
+### 版本：Ver 1.2.0
 
 ### 作者：xuxing & mxdh & yuy
 
@@ -72,9 +68,13 @@ Step 3:运行【OIer Auxiliary.exe】，按指示步骤操作。
 + fixed win10 Onedrive桌面显示
 
 ### Ver 1.1.3 to 1.2.0
-+ new 自动对拍
++ new 自动对拍程序(测试)
 
 ------------------------------------------
 ## 已知问题：
 
 暂无
+
+## LICENSE
+
+This project follows [GPL-3.0 LICENSE](LICENSE)
