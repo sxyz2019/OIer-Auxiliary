@@ -1,0 +1,28 @@
+{
+  "name": "OIer-Auxiliary",
+  "version": "1.2.0",
+  "description": "[![CodeFactor](https://www.codefactor.io/repository/github/sxyz2019/oier-auxiliary/badge)](https://www.codefactor.io/repository/github/sxyz2019/oier-auxiliary)",
+  "dependencies": {},
+  "devDependencies": {
+    "cz-conventional-changelog": "^2.1.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sxyz2019/OIer-Auxiliary.git"
+  },
+  "keywords": [],
+  "author": "xuxing & mxdh &yuy",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/sxyz2019/OIer-Auxiliary/issues"
+  },
+  "homepage": "https://github.com/sxyz2019/OIer-Auxiliary#readme",
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
+}
