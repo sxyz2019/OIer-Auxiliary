@@ -65,7 +65,10 @@ Step 3:运行【OIer Auxiliary.exe】，按指示步骤操作。
 + fixed 名称tab报错
 
 ### Ver 1.1.2 to Ver 1.1.3
-+ fixed win10Onedrive桌面显示
++ fixed win10 Onedrive桌面显示
+
+### Ver 1.1.3 to 1.2.0
++ new 自动对拍
 
 ------------------------------------------
 ## 已知问题：
