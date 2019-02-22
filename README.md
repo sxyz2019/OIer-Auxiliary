@@ -77,4 +77,6 @@ Step 3:运行【OIer Auxiliary.exe】，按指示步骤操作。
 
 ## LICENSE
 
-This project follows [GPL-3.0 LICENSE](LICENSE)
+Copyright (c) 2019 sxyz2019
+
+Licensed under the [GPL-3.0 LICENSE](LICENSE) License.

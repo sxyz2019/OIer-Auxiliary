@@ -2,22 +2,24 @@
  * @file Right-Beat.cpp
  * @author xuxing & mxdh
  * @brief 自动对拍程序
- * @version 1.2.1
+ * @version 1.2.0
  * @date 2019-02-21
 
  * @copyright Copyright (c) 2019 sxyz2019
 
- * This program is free software: you can redistribute it and/or modify
+ * This file is part of OIer-Auxiliary.
+
+ * OIer-Auxiliary is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
- * This program is distributed in the hope that it will be useful,
+ * OIer-Auxiliary is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
 
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ * along with OIer-Auxiliary.  If not, see <https://www.gnu.org/licenses/>.
  */
 #pragma GCC optimize(2)
 /*
