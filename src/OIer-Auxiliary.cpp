@@ -21,17 +21,21 @@
  * You should have received a copy of the GNU General Public License
  * along with OIer-Auxiliary.  If not, see <https://www.gnu.org/licenses/>.
  */
+/*
 #ifndef UNICODE
 #	define UNICODE
 #endif
 #ifndef _UNICODE
 #	define _UNICODE
 #endif
+*/
 #pragma GCC optimize(2)
 #include <cstdio>
 #include <shlobj.h>
 #include <tchar.h>
 #include <windows.h>
+
+using std::puts;
 
 const int N = 100, LEN = 2000;
 TCHAR s[LEN], now[LEN], name[LEN], pro[N][LEN], cmd[LEN], defSrc[LEN], src[LEN], path[LEN],

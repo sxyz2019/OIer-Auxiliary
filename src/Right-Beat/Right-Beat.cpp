@@ -30,20 +30,30 @@
 #	define _UNICODE
 #endif
 */
-#include <bits/stdc++.h>
+#include <vector>
+#include <string>
+#include <iostream>
 #include <io.h>
 #include <shlobj.h>
 #include <tchar.h>
 #include <windows.h>
-using namespace std;
+#include <cstdlib>
+#include <cstdio>
+using std::vector;
+using std::exit;
+using std::puts;
 
 typedef long long LL;
 #ifdef _UNICODE
 #	define tstring wstring
 #	define tcout wcout
+using std::wstring;
+using std::wcout;
 #else
 #	define tstring string
 #	define tcout cout
+using std::string;
+using std::cout;
 #endif
 
 const int LEN = 2000, MAX = 1e8;
