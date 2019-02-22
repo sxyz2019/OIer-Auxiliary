@@ -6,6 +6,10 @@ An auxiliary tool for OIers
 
 [**项目地址**](https://github.com/sxyz2019/OIer-Auxiliary)
 
+## LICENSE
+
+This project follow [GPL-3.0 LICENSE](LICENSE)
+
 ------------------------------------------
 ## 使用说明：
 
