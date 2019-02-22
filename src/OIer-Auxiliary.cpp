@@ -226,6 +226,7 @@ void openFiles()
 
 int main()
 {
+	SetConsoleTitleW(L"OIer-Auxiliary(OIer助手)");
 	input();
 	_tsystem(_T("cls"));
 	puts("Loading...\n");
