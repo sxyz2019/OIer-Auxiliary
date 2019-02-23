@@ -222,8 +222,8 @@ void createSource()
 				_tcscat(cmd, _T("freopen(\"")), _tcscat(cmd, pro[i]),
 					_tcscat(cmd, _T(".out\", \"w\", stdout);"));
 			if (j == 5) _tcscat(cmd, _T("FileClose:"));
-			if (j == 6) _tcscat(cmd, _T("fclose(\"stdin\");"));
-			if (j == 7) _tcscat(cmd, _T("fclose(\"stdout\");"));
+			if (j == 6) _tcscat(cmd, _T("fclose(stdin);"));
+			if (j == 7) _tcscat(cmd, _T("fclose(stdout);"));
 			if (j == 8) _tcscat(cmd, _T("****************************************"));
 			if (j == 9) _tcscat(cmd, _T("*/"));
 			_tcscat(cmd, _T(" >>"));
