@@ -30,30 +30,30 @@
 #	define _UNICODE
 #endif
 */
-#include <vector>
-#include <string>
-#include <iostream>
-#include <io.h>
-#include <shlobj.h>
-#include <tchar.h>
-#include <windows.h>
-#include <cstdlib>
 #include <cstdio>
-using std::vector;
+#include <cstdlib>
+#include <io.h>
+#include <iostream>
+#include <shlobj.h>
+#include <string>
+#include <tchar.h>
+#include <vector>
+#include <windows.h>
 using std::exit;
 using std::puts;
+using std::vector;
 
 typedef long long LL;
 #ifdef _UNICODE
 #	define tstring wstring
 #	define tcout wcout
-using std::wstring;
 using std::wcout;
+using std::wstring;
 #else
 #	define tstring string
 #	define tcout cout
-using std::string;
 using std::cout;
+using std::string;
 #endif
 
 const int LEN = 2000, MAX = 1e8;
@@ -111,7 +111,7 @@ void GetAllFiles(tstring path, vector<tstring> &files, tstring fileType)
 	}
 }
 
-void success()
+void succeed()
 {
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),
 							FOREGROUND_INTENSITY | FOREGROUND_GREEN);
@@ -121,10 +121,10 @@ void success()
 																 | FOREGROUND_BLUE);
 }
 
-void failed()
+void fail()
 {
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_INTENSITY | FOREGROUND_RED);
-	puts("Matching failure\n");
+	puts("Matching failed\n");
 	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_INTENSITY | FOREGROUND_RED
 																 | FOREGROUND_GREEN
 																 | FOREGROUND_BLUE);
@@ -229,10 +229,10 @@ void Judge()
 		printf("%lums\n", t2 - t1);
 		if (_tsystem(cmd[3]))
 		{
-			failed();
+			fail();
 			break;
 		}
-		success();
+		succeed();
 	}
 }
 
