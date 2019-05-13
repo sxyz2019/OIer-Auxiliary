@@ -84,13 +84,13 @@ template <class T> inline void read(T &x)
 }
 
 /**
- * @brief Get the All Files object
+ * @brief Find all files
  *
  * @param path 指定目录
  * @param files 保存结果
  * @param fileType 指定的文件格式，如 .jpg
  */
-void GetAllFiles(tstring path, vector<tstring> &files, tstring fileType)
+void FindAllFiles(tstring path, vector<tstring> &files, tstring fileType)
 {
 	// 文件句柄
 	intptr_t hFile = 0;
@@ -140,7 +140,7 @@ void GetExecutables()
 	for (int i = 0; i < len; ++i) res += now[i];
 	// res = '\"' + res + '\"';
 	vector<tstring> pro;
-	GetAllFiles(res, pro, _T(".exe"));
+	FindAllFiles(res, pro, _T(".exe"));
 	if (pro.size() != 4)
 	{
 		puts("Error code is 0.");
